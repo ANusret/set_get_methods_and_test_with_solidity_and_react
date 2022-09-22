@@ -1,0 +1,88 @@
+Yeni bir contract oluşturmak için:
+
+yeni bir dosya açmalıyız
+
+mkdir SimpleStorage => SimpleStorage isimli bir dosya oluştur
+
+cd SimpleStorage => Dosyanın içine giriyoruz
+
+npm init => package.json dosyasını oluşturuyoruz (ayarlar dosyası-node package manager)
+
+truffle init => truffle kuruyoruz
+
+// truffle unbox metacoin => metacoin indirir
+
+
+truffle-config.js de 
+development:{
+	host: "127.0.0.1",
+	port: 8545,
+	network_id: "*",
+}
+kısımlarını açıyoruz ve network id mizi yazıyor hali hazırda bulunanları kontrol ediyoruz.
+Gananche içinde bulunmakta.
+en altta 
+compilers:{
+	solc:{  //=> solidity compiler demek
+		version: "0.5.1",
+}}
+var burayı açıp düzenlemeye ihtiyaç duyabiliriz.
+
+truffle compile  //=> çalışıp çalışmadığı kontrolü ve build klasörü açılır
+
+contract ımızı yazıyoruz
+
+migrations a yazdığımız kontratı tanıtıyoruz:
+
+dosya isimleri sıralı gitmeliler 1_contractname_migration, 2_contractname_migration, 3_contractname_migration...
+
+içeriği:
+
+const contractname = artifacts.require('contractname');
+
+module.exports = function (deployer) {   //=> (deployer, ...) ...lı yere network vs. ekleyerek network kısmına gidebiliyoruz.
+	deployer.deploy(contractname);  //=> (contractname, ...) ...lı yere nesne için başlangı değerleri göndereceksek yazıp gönderebiliriz.
+}
+
+truffle compile //=> yazdığımız şeyleri kaydedip tekrar derledik bir hata olursa build klasörünü komple silip tekrar derliyoruz
+
+npm install @openzeppelin/contracts
+
+npm install @truffle/contract
+
+npm audit fix
+or
+npm audit fix --force
+
+truffle migrate //diyerek network e gönderiyoruz
+
+truffle migrate --network canli // ayarlara gidip canlı: yapıp main network ün adresini yazarsak ethereum main networke atmış oluruz.
+
+**ÖNCE KENDİ AĞIMIZDA TEST ETMELİYİZ**
+
+Testimizi yazalım
+
+truffle test //test işlemini başlatır.
+
+kontratımızla biz etkileşim kurduk ama kullanıcılar nasıl etkileşim kuracak bunun için bu projenin front-end kısmında react kullanıyoruz
+
+npx create-react-app client  //client dosya adı
+
+cd client
+
+npm install web3
+
+sonrasında App.js kısmındaki kodu kendi front-end imiz olacak şekilde ayarlıyoruz
+
+npm start //diyerek App.js de yazdığımız kodu local de görmek üzere çalıştırıyoruz
+
+**CHROME METAMASK eklentisinden yardım almanız gerekecektir bu aşamadan sonrası için**
+**Yapacağımız şey bir hesap açıp bu hesaba gananche deki adreslerden bir kaçını kaydediyoruz**
+**Yazdığımız front-end de bu hesaplar arası işlemler yaparak önce local de tekrar bir test işlemi gerçekleştirmiş oluyoruz**
+**Ve sonrasında contract ımızı yayınlamaya hazır hale geliryoruz.**
+
+
+
+npm install config => daha dinamik bir proje yapmak istiyorsak bunu kullanıyoruz. Bu dosya üzerinden ayarları çekmeye başlıyor.
+config get => diyerek de bunu alıp okuyabiliyoruz.
+
